@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-namespace YourNamespace.Controllers;     //be sure to use your own project's namespace!
+namespace FormController.Controllers;     //be sure to use your own project's namespace!
     public class FormController : Controller   //remember inheritance??
     {
         //for each route this controller is to handle:
@@ -7,13 +7,23 @@ namespace YourNamespace.Controllers;     //be sure to use your own project's nam
         [Route("")]     //associated route string (exclude the leading /)
         public ViewResult Index()
         {
-            return View();
+            return View("Index");
         }
         [HttpPost]
         [Route("method")]
         public IActionResult method(string Name, string DojoLocation, string FavoriteLanguage, string Comment)
         {
-            return RedirectToAction("Result", string name = Name, );
+            string[] inputs = {Name, DojoLocation, FavoriteLanguage, Comment};
+            ViewBag.Name = Name;
+            ViewBag.DojoLocation = DojoLocation;
+            ViewBag.FavoriteLanguage = FavoriteLanguage;
+            ViewBag.Comment = Comment;
+            return View("result");
+        }
+        [HttpGet]       //type of request
+        public ViewResult Result()
+        {
+            return View();
         }
     }
 
